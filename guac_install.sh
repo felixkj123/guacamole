@@ -137,6 +137,9 @@ guac_install () {
 		ln -s $GUAC_ROOT_DIR /usr/share/tomcat8/.guacamole
 		#guac_install_retval = "$?"
                 #guac_cmd_stat $guac_install_retval
+		systemctl enable guacd
+		systemctl start guacd
+		systemctl restart tomcat8
 		echo -e "\e[1;32mInstallation Finished\e[0m"
 
 	else
