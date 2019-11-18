@@ -1,4 +1,4 @@
-# guacamole
+# guacamole-fguactest
 
 ###Basic guacamole installation without database
 
