@@ -157,6 +157,7 @@ apt-get purge -y $files
 main () {
 	echo -e "\e[1;32m$files...\e[0m"
 	echo "1st arg is $1"
+	apt-get update
 	case $CMD in
 		build)
 			guac_apt_fetch
