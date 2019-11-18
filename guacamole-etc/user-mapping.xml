@@ -1,0 +1,71 @@
+<user-mapping>
+
+    <!-- Example user configurations are given below. For more information,
+         see the user-mapping.xml section of the Guacamole configuration
+         documentation: http://guac-dev.org/Configuring%20Guacamole -->
+
+    <!-- Per-user authentication and config information -->
+    <!--
+    <authorize username="USERNAME" password="PASSWORD">
+        <protocol>vnc</protocol>
+        <param name="hostname">localhost</param>
+        <param name="port">5900</param>
+        <param name="password">VNCPASS</param>
+    </authorize>
+    -->
+
+    <!-- Another user, but using md5 to hash the password
+         (example below uses the md5 hash of "PASSWORD") -->
+    
+    	<authorize username="admin" password="password">
+        	<connection name="ssh Connection">
+			<protocol>ssh</protocol>
+        		<param name="hostname">192.168.1.10</param>
+        		<param name="port">22</param>
+        		<param name="password">vishnu</param>
+			<!--<param name="username">Administrator</param>-->
+    		</connection>
+
+		<connection name="vnc connection">
+			<protocol>vnc</protocol>
+			<param name="hostname">192.168.1.10</param>
+			<param name="port">5900</param>
+			<param name="username">vishnu</param>
+			<param name="password">vishnu</param>
+		</connection>
+	
+		<connection name="rdp connection windows 1.200">
+			<protocol>rdp</protocol>
+			<param name="hostname">192.168.1.200</param>
+			<param name="port">3389</param>
+			<!--<param name="username">Administrator</param>
+			<param name="password">Apple@123</param>-->
+		</connection>
+
+		<connection name="rdp connection sibichen">
+                        <protocol>rdp</protocol>
+                        <param name="hostname">192.168.1.9</param>
+                        <param name="port">3389</param>
+                        <!--<param name="username">Administrator</param>
+                        <param name="password">Apple@123</param>-->
+                </connection>
+
+		<connection name="rdp connection windows 1.206 openstack">
+                        <protocol>rdp</protocol>
+                        <param name="hostname">192.168.1.206</param>
+                        <param name="port">3389</param>
+                        <!--<param name="username">felix1</param>
+                        <param name="password">Apple@123456</param>-->
+                </connection>
+
+		<connection name="vnc connection self">
+                        <protocol>vnc</protocol>
+                        <param name="hostname">192.168.1.22</param>
+                        <param name="port">5900</param>
+                        <param name="username">felix</param>
+                        <param name="password">felix</param>
+                </connection>
+
+	</authorize>
+  
+</user-mapping>
