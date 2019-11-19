@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\e[1;32mGuacamole Installation Started...\e[0m"
+echo -e "\e[1;32mGuacamole Installation Started\e[0m"
 
 TOP_DIR=$(cd $(dirname "$0") && pwd)
 GUAC_ROOT_DIR="/etc/guacamole"
