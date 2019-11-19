@@ -154,6 +154,14 @@ guac_clean () {
 
 echo -e "\e[1;32mguac clean...\e[0m"
 apt-get purge -y $files
+
+apt-get purge -y $tomcatfiles
+
+rm -r /var/lib/tomcat8/
+
+rm -r /etc/guacamole/
+
+rm -r /usr/share/tomcat8
 }
 
 
