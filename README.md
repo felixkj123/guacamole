@@ -89,5 +89,7 @@ Make the script executable
 
 run guac_install.sh
 	sudo -s
-	./guac_install.sh
+	./guac_install.sh build
+	
+to add new connections, update the .xml file and restart tomcat service
 
