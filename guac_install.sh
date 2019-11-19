@@ -19,9 +19,12 @@ guacServerFileName="guacamole-server-0.9.14.tar.gz"
 guacServerFileLink="https://sourceforge.net/projects/guacamole/files/current/source/$guacServerFileName"
 guacClientFileName="guacamole-0.9.14.war"
 guacClientFileLink="https://sourceforge.net/projects/guacamole/files/current/binary/$guacClientFileName"
+
 guac_cmd_stat () {
-	echo -e "\e[1;32mguac_cmd_stat...\e[0m"
-	if [ $1 != SUCCESS  ]; then
+	echo -e "\e[1;32mguac_cmd_stat\e[0m"
+	echo "guac_cmd_stat is $1"
+
+	if [ $1 != $SUCCESS  ]; then
 		echo -e "\e[1;32mcmd failure...\e[0m"
 		exit 1
 	fi
@@ -31,21 +34,21 @@ guac_apt_fetch () {
 	echo -e "\e[1;32mguac_apt-fetch files...\e[0m"
 	###Installing guacamole required dependencies
 	apt-get install -y $files
-	#guac_apt_fetch_retval="$?"
-	#guac_cmd_stat $guac_apt_fetch_retval
+	guac_apt_fetch_retval="$?"
+	guac_cmd_stat $guac_apt_fetch_retval
 	
 	echo -e "\e[1;31mcheck1............................\e[0m"	
 	###Installing Tomcat servlet
 	apt-get install $tomcatfiles -y
-	#guac_apt_fetch_retval="$?"
-        #guac_cmd_stat $guac_apt_fetch_retval
+	guac_apt_fetch_retval="$?"
+        guac_cmd_stat $guac_apt_fetch_retval
 	
 	echo "check2"	
 	echo -e "\e[1;31mcheck2............................\e[0m"	
 	###Downloading Guacamole server 
 	wget -P $TOP_DIR $guacServerFileLink
-	#guac_apt_fetch_retval="$?"
-        #guac_cmd_stat $guac_apt_fetch_retval
+	guac_apt_fetch_retval="$?"
+        guac_cmd_stat $guac_apt_fetch_retval
 
 	echo "check3"	
 	echo -e "\e[1;31mcheck3............................\e[0m"	
@@ -56,8 +59,8 @@ guac_apt_fetch () {
 	echo -e "\e[1;31mcheck4............................\e[0m"	
 	###Downloading Guacamole client
 	wget -P $TOP_DIR $guacClientFileLink
-	#guac_apt_fetch_retval="$?"
-        #guac_cmd_stat $guac_apt_fetch_retval
+	guac_apt_fetch_retval="$?"
+        guac_cmd_stat $guac_apt_fetch_retval
 	echo "check5"	
 	echo -e "\e[1;31mcheck5............................\e[0m"	
 }
@@ -74,25 +77,26 @@ guac_install () {
 		###Initializing init.d to Install a startup script for guacd
 		echo -e "\e[1;32mconfiguring guacamole\e[0m"
 		./configure --with-init-dir=/etc/init.d
-		#guac_install_retval="$?"
-		#guac_cmd_stat $guac_install_retval
+		guac_install_retval="$?"
+		guac_cmd_stat $guac_install_retval
 		
 		###Compiling code with gcc-6
 		echo -e "\e[1;32mcompiling code with gcc-6\e[0m"
 		make CC=gcc-6
-		#guac_install_retval="$?"
-                #guac_cmd_stat $guac_install_retval
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
 
 		###Install the components that were built
 		echo -e "\e[1;32minstalling components that were built\e[0m"
 		make install
-		#guac_install_retval="$?"
-                #guac_cmd_stat $guac_install_retval
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
 
 		###Create the necessary links and cache to the most recent shared libraries found in the guacamole server directory.
 		echo -e "\e[1;32mCreating links ldconfig\e[0m"
 		ldconfig
-		
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
 
 		###Check for Guacamole Root Directory /etc/guacamole(if yes then delete and make a new one)
 		if [ -d $GUAC_ROOT_DIR  ]; then
@@ -116,8 +120,8 @@ guac_install () {
 		
 		echo -e "\e[1;32mlinking guacamole.war with /var/lib/tomcat8/webapps...\e[0m"
 		ln -s $GUAC_ROOT_DIR/guacamole.war /var/lib/tomcat8/webapps/
-		#guac_install_retval="$?"
-                #guac_cmd_stat $guac_install_retval
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
 		
 		
 		mkdir $GUAC_ROOT_DIR/{extensions,lib}
@@ -125,8 +129,12 @@ guac_install () {
 		echo "GUACAMOLE_HOME=$GUAC_ROOT_DIR" >> /etc/default/tomcat8
 		
 		###copy .properties and .xml files to /etc/guacamole directory
-		cp $TOP_DIR/guacamole-etc/guacamole.properties $GUAC_ROOT_DIR
-		cp $TOP_DIR/guacamole-etc/user-mapping.xml $GUAC_ROOT_DIR
+		if [ -d $TOP_DIR/guacamole-etc ]; then
+			cp $TOP_DIR/guacamole-etc/guacamole.properties $GUAC_ROOT_DIR
+			cp $TOP_DIR/guacamole-etc/user-mapping.xml $GUAC_ROOT_DIR
+		else
+			echo -e "\e[1;31m$TOP_DIR/guacamole-etc not found,\n check the repo\e[0m"
+		fi
 
 		###Check for .guacamole file in /usr/share/tomcat*
                 if [ -e /usr/share/tomcat8/.guacamole ]; then
@@ -135,8 +143,8 @@ guac_install () {
                 fi
 		
 		ln -s $GUAC_ROOT_DIR /usr/share/tomcat8/.guacamole
-		#guac_install_retval = "$?"
-                #guac_cmd_stat $guac_install_retval
+		guac_install_retval = "$?"
+                guac_cmd_stat $guac_install_retval
 		systemctl enable guacd
 		systemctl start guacd
 		systemctl restart tomcat8
@@ -152,15 +160,20 @@ guac_install () {
 
 guac_clean () {
 
-echo -e "\e[1;32mguac clean...\e[0m"
+echo -e "\e[1;32mGuac cleaning Initiated\e[0m"
+echo -e "\e[1;31mPurging dependencies\e[0m"
 apt-get purge -y $files
 
+echo -e "\e[1;31mPurging tomcat8\e[0m"
 apt-get purge -y $tomcatfiles
 
+echo -e "\e[1;31mRemoving lib files \e[0m"
 rm -r /var/lib/tomcat8/
 
+echo -e "\e[1;31mRemoving etc files\e[0m"
 rm -r /etc/guacamole/
 
+echo -e "\e[1;31mRemoving share files\e[0m"
 rm -r /usr/share/tomcat8
 }
 
@@ -168,9 +181,9 @@ rm -r /usr/share/tomcat8
 main () {
 	echo -e "\e[1;32m$files...\e[0m"
 	echo "1st arg is $1"
-	apt-get update
 	case $CMD in
 		build)
+			apt-get update
 			guac_apt_fetch
 			guac_install
 			;;
