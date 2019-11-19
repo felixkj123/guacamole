@@ -28,6 +28,9 @@ guac_cmd_stat () {
 	if [ $1 != $SUCCESS  ]; then
 		echo -e "\e[1;32mcmd failure...\e[0m"
 		exit 1
+	else
+		echo "Done\n"
+	
 	fi
 }
 
@@ -161,21 +164,31 @@ guac_install () {
 
 guac_clean () {
 
-echo -e "\e[1;32mGuac cleaning Initiated\e[0m"
-echo -e "\e[1;31mPurging dependencies\e[0m"
-apt-get purge -y $files
-
-echo -e "\e[1;31mPurging tomcat8\e[0m"
-apt-get purge -y $tomcatfiles
-
-echo -e "\e[1;31mRemoving lib files \e[0m"
-rm -r /var/lib/tomcat8/
-
-echo -e "\e[1;31mRemoving etc files\e[0m"
-rm -r /etc/guacamole/
-
-echo -e "\e[1;31mRemoving share files\e[0m"
-rm -r /usr/share/tomcat8
+	echo -e "\e[1;32mGuac cleaning Initiated\e[0m"
+	echo -e "\e[1;31mPurging dependencies\e[0m"
+	apt-get purge -y $files
+	guac_clean_retval="$?"
+	guac_cmd_stat $guac_install_retval
+	
+	echo -e "\e[1;31mPurging tomcat8\e[0m"
+	apt-get purge -y $tomcatfiles
+	guac_clean_retval="$?"
+	guac_cmd_stat $guac_install_retval
+	
+	echo -e "\e[1;31mRemoving lib files \e[0m"
+	rm -r /var/lib/tomcat8/
+	guac_clean_retval="$?"
+	guac_cmd_stat $guac_install_retval
+	
+	echo -e "\e[1;31mRemoving etc files\e[0m"
+	rm -r /etc/guacamole/
+	guac_clean_retval="$?"
+	guac_cmd_stat $guac_install_retval
+	
+	echo -e "\e[1;31mRemoving share files\e[0m"
+	rm -r /usr/share/tomcat8
+	guac_clean_retval="$?"
+	guac_cmd_stat $guac_install_retval
 }
 
 
