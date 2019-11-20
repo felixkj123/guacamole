@@ -168,27 +168,27 @@ guac_clean () {
 	echo -e "\e[1;31mPurging dependencies\e[0m"
 	apt-get purge -y $files
 	guac_clean_retval="$?"
-	guac_cmd_stat $guac_install_retval
+	guac_cmd_stat $guac_clean_retval
 	
 	echo -e "\e[1;31mPurging tomcat8\e[0m"
 	apt-get purge -y $tomcatfiles
 	guac_clean_retval="$?"
-	guac_cmd_stat $guac_install_retval
+	guac_cmd_stat $guac_clean_retval
 	
 	echo -e "\e[1;31mRemoving lib files \e[0m"
 	rm -r /var/lib/tomcat8/
 	guac_clean_retval="$?"
-	guac_cmd_stat $guac_install_retval
+	guac_cmd_stat $guac_clean_retval
 	
 	echo -e "\e[1;31mRemoving etc files\e[0m"
 	rm -r /etc/guacamole/
 	guac_clean_retval="$?"
-	guac_cmd_stat $guac_install_retval
+	guac_cmd_stat $guac_clean_retval
 	
 	echo -e "\e[1;31mRemoving share files\e[0m"
 	rm -r /usr/share/tomcat8
 	guac_clean_retval="$?"
-	guac_cmd_stat $guac_install_retval
+	guac_cmd_stat $guac_clean_retval
 }
 
 
