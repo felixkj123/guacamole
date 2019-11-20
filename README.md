@@ -88,8 +88,12 @@ Make the script executable
 	sudo chmod +x guac_install.sh
 
 run guac_install.sh
-	sudo -s
-	./guac_install.sh build
+	to build/install
+		sudo -s
+		./guac_install.sh build
+
+	to clean/uninstall the build
+		./guac_install.sh clean
 	
 to add new connections, update the .xml file and restart tomcat service
 
