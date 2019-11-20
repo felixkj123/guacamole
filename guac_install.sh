@@ -205,7 +205,7 @@ main () {
 			guac_clean
 			;;
 		*)
-			echo -e "\e[1;32mNothing to do\e[0m"
+			echo -e "\e[1;32mNothing to do...???\n Do you want to build or clean:<build/clean>\e[0m"
 	esac	
 }
 
