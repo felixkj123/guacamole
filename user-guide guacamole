@@ -1,0 +1,34 @@
+#USER GUIDE
+
+
+###Remote Machine
+
+Make sure the needed permissions are set on the remote machine side ie vnc,rdp,telnet,ssh permissions and firewall port
+permissions are enabled or allowed.
+
+
+###Guacamole
+
+1) Login to Guacamole
+    
+    *)http://<guacamole server ip addr>:8080/guacamole
+    
+    *)Enter username and password
+        #)The default username and password is "guacadmin" when freshly installed which can be altered.
+    
+    *)Create New User
+        #)Select the "SETTINGS" tab on the dropdown list from the top right corner of guacamole web UI.
+        #)Select "USERS" tab from the top row.
+        #)Select the "New User" 
+            ^)Enter the required credentials
+            ^)Give the required permissions to the new user
+            ^)Save the configuration
+    
+    *)Create New Group
+       Groups can be made to be a collection of machines or connections for the user.
+        #)Select the "Connections" tab
+        #)Select the "New Group"
+        #)Enter the required columns and save
+        
+    *)Create New Connection
+    
