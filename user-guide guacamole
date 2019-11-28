@@ -28,7 +28,10 @@ permissions are enabled or allowed.
        Groups can be made to be a collection of machines or connections for the user.
         #)Select the "Connections" tab
         #)Select the "New Group"
-        #)Enter the required columns and save
+        #)Enter the required credentials and save
         
     *)Create New Connection
-    
+       Connections are the actual link to a physical or virtual machine.
+        #)Select the "Connections" tab
+        #)Select the "New Connections"
+        #)Enter the required credentials and save
