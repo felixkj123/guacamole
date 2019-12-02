@@ -81,14 +81,14 @@ paste the below given to the file, if database authentication is used, comment o
 		</user-mapping>
 			
 			
-guacamoleusername	=	username for guacamole
-guacamolepassword	=	password for guacamole
-commprotocol		=	communication protocol("ssh","vnc","rdp")
-ipaddress		=	ip address if remote server
-portno			=	listening port number of the commprotocol(default 3396 for RDP, 5900 for vnc, 22 for ssh)
-				(if port is not working check the open ports from 'nmap $hostip')
-username		=	username of the remote server(not mandatory)
-password		=	password of the remote server(not mandatory)
+	guacamoleusername	=	username for guacamole
+	guacamolepassword	=	password for guacamole
+	commprotocol		=	communication protocol("ssh","vnc","rdp")
+	ipaddress		=	ip address if remote server
+	portno			=	listening port number of the commprotocol(default 3396 for RDP, 5900 for vnc, 22 for ssh)
+					(if port is not working check the open ports from 'nmap $hostip')
+	username		=	username of the remote server(not mandatory)
+	password		=	password of the remote server(not mandatory)
 
 
 
@@ -103,7 +103,7 @@ password		=	password of the remote server(not mandatory)
 ### Download mysql driver from apache
 - Go to site [here](https://dev.mysql.com/downloads/connector/j/).
 
-- Click on "Looking for the latest GA version?"
+- Click on "Looking for the previous GA version?"
 
 - Download mysql-connector-java-5.1.48.tar.gz
 
@@ -156,8 +156,8 @@ paste the below given to the file,
 	
 note: replace guacamole_user with the selected user in database and replace some_password with the user' passsword
 
-	systemctl restart tomcat8
-	systemctl restart guacd
+		systemctl restart tomcat8
+		systemctl restart guacd
 
 
 To login to the guacamole enter **http://<guacamole_server_ip>:8080/guacamole/**, the default **username and password** is '**guacadmin**' which should **_only be used to login to the server initially and must be deleted after the creation of custom username and password_**.
