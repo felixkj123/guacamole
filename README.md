@@ -1,9 +1,9 @@
-# guacamole-master
+# Guacamole-master
 
-###Basic guacamole installation without database
+## Basic guacamole installation without database
 
 
-#Manual Installation-(tested on ubundu 18.04)
+## Manual Installation-(tested on ubundu 18.04)
 
 ==> sudo -s
 
@@ -53,21 +53,21 @@
 ==> ln -s /etc/guacamole /usr/share/tomcat8/.guacamole
 
 
+#### If database authentication is used skip this part of editing /etc/guacamole/user-mapping
 
-#if database authentication is used skip this part of editing /etc/guacamole/user-mapping
 ==> vim /etc/guacamole/user-mapping.xml
 
-<user-mapping>
-	<authorize username="guacamoleusername" password="guacamolepassword">
-		<connection name="Mst to be printed on to the guacamole UI">
-			<protocol>commprotocol</protocol>
-			<param name="hostname">ipaddress</param>
-			<param name="port">portno</param>
-			<param name="password">password</param>
-			<param name="username">username</param>
-		</connection>	
-	</authorize>
-</user-mapping>
+	<user-mapping>
+		<authorize username="guacamoleusername" password="guacamolepassword">
+			<connection name="Mst to be printed on to the guacamole UI">
+				<protocol>commprotocol</protocol>
+				<param name="hostname">ipaddress</param>
+				<param name="port">portno</param>
+				<param name="password">password</param>
+				<param name="username">username</param>
+			</connection>	
+		</authorize>
+	</user-mapping>
 			
 			
 guacamoleusername	=	username for guacamole
@@ -82,7 +82,7 @@ password		=	password of the remote server(not mandatory)
 
 
 ### Download authentication extension for guacamole
-==> Download guacamole-auth-jdbc-0.9.14.tar.gz from http://guacamole.apache.org/releases/0.9.14/
+==> Download guacamole-auth-jdbc-0.9.14.tar.gz from [here](http://guacamole.apache.org/releases/0.9.14/).
 
 ==> tar xvf guacamole-auth-jdbc-0.9.14.tar.gz
 
@@ -92,7 +92,7 @@ password		=	password of the remote server(not mandatory)
 
 
 ### Download mysql driver from apache
-==> Go to site https://dev.mysql.com/downloads/connector/j/
+==> Go to site [here](https://dev.mysql.com/downloads/connector/j/).
 
 ==> Click on "Looking for the latest GA version?"
 
@@ -117,28 +117,29 @@ password		=	password of the remote server(not mandatory)
 ### Creating Database,Users and granting privileges
 ==> mysql -u root -p
 
-==> mysql> CREATE DATABASE guacamole_db;
+==> CREATE DATABASE guacamole_db;
 
 ==> CREATE USER 'guacamole_user'@'localhost' IDENTIFIED BY 'some_password';
 #guacamole_user = user 
 
 ==> GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacamole_user'@'localhost';
-#guacamole_user = user/root or both
+	note:guacamole_user = guacamole_server machine user
+	
+	eg: GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'accl'@'localhost';
 
-==> mysql> FLUSH PRIVILEGES;
+==> FLUSH PRIVILEGES;
 
-==> mysql> quit
+==> quit
 
 ==> ls schema/
 
-==> cat schema/*.sql | mysql -u root -p <guacamole_db>
-
+==> cat schema/*.sql | mysql -u root -p guacamole_db
 
 
 ### Configuring Guacamole for database authentication, edit /etc/guacamole/guacamole.properties
 ==> vim /etc/guacamole/guacamole.properties
-INSERT
-  # MySQL properties
+	
+	#Mysql Properties
 	mysql-hostname: localhost
 	mysql-port: 3306
 	mysql-database: guacamole_db
@@ -152,7 +153,13 @@ systemctl restart tomcat8
 systemctl restart guacd
 
 
-###Using script
+To login to the guacamole enter http://<guacamole_server_ip>:8080/guacamole/
+
+## End of Manual Installation
+
+
+## Using script to install Guacamole(database authentication is not yet supported)
+
 clone the repo
 
 Edit the "*.properties" & "*.xml" files in guacamole-etc
@@ -164,7 +171,6 @@ run guac_install.sh
 	to build/install
 		sudo -s
 		./guac_install.sh build
-
 	to clean/uninstall the build
 		./guac_install.sh clean
 	
