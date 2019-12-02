@@ -145,6 +145,7 @@ INSERT
 	mysql-database: guacamole_db
 	mysql-username: guacamole_user
 	mysql-password: some_password
+	
 note: replace guacamole_user with the selected user in database and replace some_password with the user' passsword
 
 
