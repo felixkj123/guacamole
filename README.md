@@ -137,9 +137,8 @@ password		=	password of the remote server(not mandatory)
 
 ### Configuring Guacamole for database authentication, edit /etc/guacamole/guacamole.properties
 ==> vim /etc/guacamole/guacamole.properties
-
 INSERT
-	# MySQL properties
+  # MySQL properties
 	mysql-hostname: localhost
 	mysql-port: 3306
 	mysql-database: guacamole_db
