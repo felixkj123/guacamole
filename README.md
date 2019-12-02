@@ -54,7 +54,7 @@
 
 
 
-# if database authentication is used skip this part of editing /etc/guacamole/user-mapping
+#if database authentication is used skip this part of editing /etc/guacamole/user-mapping
 ==> vim /etc/guacamole/user-mapping.xml
 
 <user-mapping>
@@ -117,15 +117,15 @@ password		=	password of the remote server(not mandatory)
 ### Creating Database,Users and granting privileges
 ==> mysql -u root -p
 Enter password: <password>
-# Enter password as given above
+#Enter password as given above
 
 ==> mysql> CREATE DATABASE guacamole_db;
 
 ==> CREATE USER 'guacamole_user'@'localhost' IDENTIFIED BY 'some_password';
-# guacamole_user = user 
+#guacamole_user = user 
 
 ==> GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacamole_user'@'localhost';
-# guacamole_user = user/root or both
+#guacamole_user = user/root or both
 
 ==> mysql> FLUSH PRIVILEGES;
 
