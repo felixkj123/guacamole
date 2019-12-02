@@ -116,8 +116,6 @@ password		=	password of the remote server(not mandatory)
 
 ### Creating Database,Users and granting privileges
 ==> mysql -u root -p
-Enter password: <password>
-#Enter password as given above
 
 ==> mysql> CREATE DATABASE guacamole_db;
 
@@ -132,10 +130,8 @@ Enter password: <password>
 ==> mysql> quit
 
 ==> ls schema/
-001-create-schema.sql  002-create-admin-user.sql  upgrade
 
 ==> cat schema/*.sql | mysql -u root -p <guacamole_db>
-Enter password: <password>
 
 
 
