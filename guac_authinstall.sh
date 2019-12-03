@@ -14,7 +14,7 @@ CMD="$1"
 files="gcc-6 g++-6 libcairo2-dev libjpeg-turbo8-dev libpng-dev \
 libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev \
 libpango1.0-dev libssh2-1-dev libvncserver-dev libssl-dev libvorbis-dev libwebp-dev \
-libpulse-dev libtelnet-dev"
+libpulse-dev libtelnet-dev expect"
 
 tomcatfiles="tomcat8 tomcat8-admin tomcat8-common tomcat8-user"
 
@@ -163,7 +163,7 @@ guac_install () {
 		
 
 		### Install mariadb
-		apt install mariadb-server
+		apt install mariadb-server -y
 		systemctl status mariadb
 		
 		./install_mariadb.sh $1 $2
