@@ -23,6 +23,20 @@ guacServerFileLink="https://sourceforge.net/projects/guacamole/files/current/sou
 guacClientFileName="guacamole-0.9.14.war"
 guacClientFileLink="https://sourceforge.net/projects/guacamole/files/current/binary/$guacClientFileName"
 
+
+Black=`tput setaf 0`   #${Black}
+Red=`tput setaf 1`     #${Red}
+Green=`tput setaf 2`   #${Green}
+Yellow=`tput setaf 3`  #${Yellow}
+Blue=`tput setaf 4`    #${Blue}
+Magenta=`tput setaf 5` #${Magenta}
+Cyan=`tput setaf 6`    #${Cyan}
+White=`tput setaf 7`   #${White}
+Bold=`tput bold`       #${Bold}
+Rev=`tput smso`        #${Rev}
+Reset=`tput sgr0`      #${Reset}
+
+
 guac_cmd_stat () {
 	echo -e "\e[1;32mguac_cmd_stat\e[0m"
 	echo "guac_cmd_stat is $1"
@@ -203,6 +217,11 @@ guac_clean () {
 	guac_clean_retval="$?"
 	guac_cmd_stat $guac_clean_retval
 	
+	echo -e "\e[1;31mPurging mariadb database\e[0m"
+	apt-get purge -y mariadb-common
+	guac_clean_retval="$?"
+	guac_cmd_stat $guac_clean_retval
+	
 	echo -e "\e[1;31mRemoving lib files \e[0m"
 	rm -r /var/lib/tomcat8/
 	guac_clean_retval="$?"
@@ -221,6 +240,36 @@ guac_clean () {
 
 
 main () {
+
+clear
+echo -e "
+
+
+                                                ${Yellow}'.'
+                            ${Green}'.:///:-.....'     ${Yellow}-yyys/-
+                     ${Green}.://///++++++++++++++/-  ${Yellow}.yhhhhhys/'
+                  ${Green}'.:++++++++++++++++++++++: ${Yellow}'yhhhhhhhhy-
+          ${White}.+y' ${Green}'://++++++++++++++++++++++++' ${Yellow}':yhhhhyo:'
+        ${White}-yNd. ${Green}'/+++++++++++++++++++++++++++//' ${Yellow}.+yo:' ${White}'::
+       ${White}oNMh' ${Green}./++++++++++++++++++++++++++++++/:' '''' ${White}'mMh.
+      ${White}-MMM:  ${Green}/+++++++++++++++++++++++++++++++++-.:/+:  ${White}yMMs
+      ${White}-MMMs  ${Green}./++++++++++++++++++++++++++++++++++++/' ${White}.mMMy
+      ${White}'NMMMy. ${Green}'-/+++++++++++++++++++++++++++++++/:.  ${White}:dMMMo
+       ${White}+MMMMNy:' ${Green}'.:///++++++++++++++++++++//:-.' ${White}./hMMMMN'
+       ${White}-MMMMMMMmy+-.${Green}''''.---::::::::::--..''''${White}.:ohNMMMMMMy
+        ${White}sNMMMMMMMMMmdhs+/:${Green}--..........--${White}:/oyhmNMMMMMMMMMd-
+         ${White}.+dNMMMMMMMMMMMMMMNNmmmmmmmNNNMMMMMMMMMMMMMMmy:'
+            ${White}./sdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmho:'
+          ${White}'     .:+shmmNNMMMMMMMMMMMMMMMMNNmdyo/-'
+          ${White}.o:.       '.-::/+ossssssso++/:-.'       '-/'
+           ${White}.ymh+-.'                           ''./ydy.
+             ${White}/dMMNdyo/-.''''         ''''.-:+shmMNh:
+               ${White}:yNMMMMMMNmdhhyyyyyyyhhdmNNMMMMMNy:
+                 ${White}':sdNNMMMMMMMMMMMMMMMMMMMNNds:'
+                     ${White}'-/+syhdmNNNNNNmdhyo/-'
+"
+
+
 	echo -e "\e[1;32m$files...\e[0m"
 	echo "1st arg is $1"
 	case $CMD in
