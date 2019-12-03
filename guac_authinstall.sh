@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\e[1;32mGuacamole Installation Started\e[0m"
+
 
 TOP_DIR=$(cd $(dirname "$0") && pwd)
 GUAC_ROOT_DIR="/etc/guacamole"
@@ -86,7 +86,7 @@ guac_apt_fetch () {
 }
 
 guac_install () {
-	echo -e "\e[1;32mguac_install...\e[0m"
+	echo -e "\e[1;32mGuacamole Installation Started\e[0m"
 	guacServDir=$(echo $guacServerFileName | sed 's/\.tar\.gz//g')
 	
 	echo -e "\e[1;32mGuac server Dir is $guacServDir...\e[0m"
@@ -206,6 +206,13 @@ guac_install () {
 
 guac_clean () {
 
+	echo -e "\e[1;31mClean will wipe out all guacamole dependencies,tomcat, amd mariadb database. \n \
+		Do you want to continue<yes/no>\e[0m"
+	read user_clean_retval
+	if [  $user_clean_retval = 'no' ] || [  $user_clean_retval = n  ]; then
+		exit 0
+	fi
+	
 	echo -e "\e[1;32mGuac cleaning Initiated\e[0m"
 	echo -e "\e[1;31mPurging dependencies\e[0m"
 	apt-get purge -y $files
@@ -270,8 +277,7 @@ echo -e "
 "
 
 
-	echo -e "\e[1;32m$files...\e[0m"
-	echo "1st arg is $1"
+
 	case $CMD in
 		build)
 			echo "Enter the guacamole_server system username"
