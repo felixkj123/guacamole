@@ -158,16 +158,16 @@ guac_install () {
 
 
 		### Extract mysql driver 
-		tar -c $TOP_DIR/ -xzf $TOP_DIR/guacamole-files/mysql-connector-java-5.1.48.tar.gz		
+		tar -C $TOP_DIR/ -xzf $TOP_DIR/guacamole-files/mysql-connector-java-5.1.48.tar.gz		
 		cp $TOP_DIR/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar /etc/guacamole/lib
 		
 
 		### Install mariadb
-		apt install mariadb-server -y
+		apt -y install mariadb-server
 		systemctl status mariadb
 		
-		./install_mariadb.sh $1 $2
-
+		.$TOP_DIR/install_mariadb.sh $1 $2
+		sleep 5
 
 		cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p guacamole_db		
 		
