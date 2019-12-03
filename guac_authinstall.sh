@@ -228,7 +228,7 @@ main () {
 			echo "Enter the guacamole_server system username"
 			read server_username
 			echo "Enter the guacamole_server system password"
-			read server_password
+			read -s server_password
 
 			apt-get update
 			guac_apt_fetch
