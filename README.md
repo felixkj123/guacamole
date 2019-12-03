@@ -117,8 +117,6 @@ paste the below given to the file, if database authentication is used, comment o
 		apt install mariadb-server
 		systemctl status mariadb
 
-### Configuring database
-		cd guacamole-auth-jdbc-0.9.14/mysql/
 
 ### Creating Database,Users and granting privileges
 		mysql -u root -p
@@ -137,6 +135,9 @@ eg: GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'accl'@'localhost';
 
 		quit
 
+### Configuring database
+		cd guacamole-auth-jdbc-0.9.14/mysql/
+		
 		ls schema/
 
 		cat schema/*.sql | mysql -u root -p guacamole_db
