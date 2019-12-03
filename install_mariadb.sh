@@ -19,3 +19,5 @@ expect "*\> "
 send "FLUSH PRIVILEGES;\r"
 expect "*\> "
 send "quit\r"
+sleep 1
+exit 0
