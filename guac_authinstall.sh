@@ -166,7 +166,8 @@ guac_install () {
 		apt -y install mariadb-server
 		systemctl status mariadb
 		
-		.$TOP_DIR/install_mariadb.sh $1 $2
+		cd $TOP_DIR
+		./install_mariadb.sh $1 $2
 		sleep 5
 
 		cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p guacamole_db		
