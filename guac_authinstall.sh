@@ -85,6 +85,34 @@ guac_apt_fetch () {
 	echo -e "\e[1;31mcheck5............................\e[0m"	
 }
 
+
+database_install () {
+                ### Extract database extension for guacamole
+                tar -C $TOP_DIR/ -xvf $TOP_DIR/guacamole-files/guacamole-auth-jdbc-0.9.14.tar.gz
+                cp $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/guacamole-auth-jdbc-mysql-0.9.14.jar /etc/guacamole/extensions
+
+
+                ### Extract mysql driver 
+                tar -C $TOP_DIR/ -xzf $TOP_DIR/guacamole-files/mysql-connector-java-5.1.48.tar.gz
+                cp $TOP_DIR/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar /etc/guacamole/lib
+
+
+                ### Install mariadb
+                apt -y install mariadb-server
+                systemctl status mariadb
+
+                cd $TOP_DIR
+                #./install_mariadb.sh $1 $2
+                mysql -u root -p$2 -e "CREATE DATABASE guacamole_db;"
+                mysql -u root -p$2 -e "GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO '$1'@'localhost' IDENTIFIED BY '$2';"
+                mysql -u root -p$2 -e "FLUSH PRIVILEGES;"
+                sleep 5
+
+                cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p$2 guacamole_db
+
+}
+
+
 guac_install () {
 	echo -e "\e[1;32mGuacamole Installation Started\e[0m"
 	guacServDir=$(echo $guacServerFileName | sed 's/\.tar\.gz//g')
@@ -166,29 +194,9 @@ guac_install () {
 		guac_install_retval = "$?"
                 guac_cmd_stat $guac_install_retval
 		
-		### Extract database extension for guacamole
-		tar -C $TOP_DIR/ -xvf $TOP_DIR/guacamole-files/guacamole-auth-jdbc-0.9.14.tar.gz
-		cp $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/guacamole-auth-jdbc-mysql-0.9.14.jar /etc/guacamole/extensions
+		###Install mariadb
+                database_install $1 $2
 
-
-		### Extract mysql driver 
-		tar -C $TOP_DIR/ -xzf $TOP_DIR/guacamole-files/mysql-connector-java-5.1.48.tar.gz		
-		cp $TOP_DIR/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar /etc/guacamole/lib
-		
-
-		### Install mariadb
-		apt -y install mariadb-server
-		systemctl status mariadb
-		
-		cd $TOP_DIR
-		#./install_mariadb.sh $1 $2
-		mysql -u root -p$2 -e "CREATE DATABASE guacamole_db;"
-                mysql -u root -p$2 -e "GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO '$1'@'localhost' IDENTIFIED BY '$2';"
-                mysql -u root -p$2 -e "FLUSH PRIVILEGES;"		
-		sleep 5
-
-		cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p$2 guacamole_db		
-		#cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root guacamole_db
 		sed -i "s/guacamole_user/${1}/" /etc/guacamole/guacamole.properties		
 		sed -i "s/some_password/${2}/" /etc/guacamole/guacamole.properties		
 
