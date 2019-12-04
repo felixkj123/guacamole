@@ -181,11 +181,14 @@ guac_install () {
 		systemctl status mariadb
 		
 		cd $TOP_DIR
-		./install_mariadb.sh $1 $2
+		#./install_mariadb.sh $1 $2
+		mysql -u root -p$2 -e "CREATE DATABASE guacamole_db;"
+                mysql -u root -p$2 -e "GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO '$1'@'localhost' IDENTIFIED BY '$2';"
+                mysql -u root -p$2 -e "FLUSH PRIVILEGES;"		
 		sleep 5
 
-		#cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p guacamole_db		
-		cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root guacamole_db
+		cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p$2 guacamole_db		
+		#cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root guacamole_db
 		sed -i "s/guacamole_user/${1}/" /etc/guacamole/guacamole.properties		
 		sed -i "s/some_password/${2}/" /etc/guacamole/guacamole.properties		
 
