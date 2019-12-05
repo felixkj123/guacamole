@@ -10,6 +10,9 @@ SUCCESS=0
 ERROR=1
 
 CMD="$1"
+TYPECMD="$2"
+
+DATABASE_INSTALL='database'
 
 files="gcc-6 g++-6 libcairo2-dev libjpeg-turbo8-dev libpng-dev \
 libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev \
@@ -109,6 +112,15 @@ database_install () {
                 sleep 5
 
                 cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p$2 guacamole_db
+		
+		sed -i '/Mysql Properties/a mysql-hostname: localhost' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-port: 3306' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-database: guacamole_db' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-username: guacamole_user ' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-password: some_password' /etc/guacamole/guacamole.properties		
+		
+		sed -i "s/guacamole_user/${1}/" /etc/guacamole/guacamole.properties		
+		sed -i "s/some_password/${2}/" /etc/guacamole/guacamole.properties
 
 }
 
@@ -179,7 +191,13 @@ guac_install () {
 		###copy .properties and .xml files to /etc/guacamole directory
 		if [ -d $TOP_DIR/guacamole-etc ]; then
 			cp $TOP_DIR/guacamole-etc/guacamole.properties $GUAC_ROOT_DIR
-			#cp $TOP_DIR/guacamole-etc/user-mapping.xml $GUAC_ROOT_DIR
+			
+			if [  $TYPECMD = $DATABASE_INSTALL ]; then
+				cp $TOP_DIR/guacamole-etc/user-mapping.xml $GUAC_ROOT_DIR
+			else
+				sed -i '/basic-user-mapping/d' $GUAC_ROOT_DIR/guacamole.properties
+			fi
+			
 		else
 			echo -e "\e[1;31m$TOP_DIR/guacamole-etc not found,\n check the repo\e[0m"
 		fi
@@ -195,11 +213,7 @@ guac_install () {
                 guac_cmd_stat $guac_install_retval
 		
 		###Install mariadb
-                database_install $1 $2
-
-		sed -i "s/guacamole_user/${1}/" /etc/guacamole/guacamole.properties		
-		sed -i "s/some_password/${2}/" /etc/guacamole/guacamole.properties		
-
+                database_install $1 $2		
 
 		systemctl enable guacd
 		systemctl start guacd
@@ -258,6 +272,15 @@ guac_clean () {
 
 
 main () {
+
+if [ "$#" -ne 2 ]; then
+  echo "Usage: ./guac_authinstall.sh <command> <mode>\n
+command	: build/clean
+mode		: database/basic"
+  exit 1
+
+fi
+
 
 clear
 echo -e "
