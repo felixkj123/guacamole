@@ -143,31 +143,19 @@ database_install () {
 		guac_db_retval="$?"
                 guac_cmd_stat $guac_db_retval
 
+		sed -i "/Mysql Properties/a mysql-hostname: localhost\n
+        		/Mysql Properties/a mysql-port: 3306\n
+        		/Mysql Properties/a mysql-database: guacamole_db\n
+        		/Mysql Properties/a mysql-username: ${1}\n
+        		/Mysql Properties/a mysql-password: ${2}" $GUAC_ROOT_DIR/guacamole.properties
 
-	#	sed -i '/Mysql Properties/a mysql-hostname: localhost' $GUAC_ROOT_DIR/guacamole.properties
-	#	sed -i '/Mysql Properties/a mysql-port: 3306' $GUAC_ROOT_DIR/guacamole.properties
-	#	sed -i '/Mysql Properties/a mysql-database: guacamole_db' $GUAC_ROOT_DIR/guacamole.properties
-	#	sed -i "/Mysql Properties/a mysql-username: ${1}" $GUAC_ROOT_DIR/guacamole.properties
-	#	sed -i "/Mysql Properties/a mysql-password: ${2}" $GUAC_ROOT_DIR/guacamole.properties		
-	#	
-	#	sed -i "s/guacamole_user/${1}/" $GUAC_ROOT_DIR/guacamole.properties		
-	#	sed -i "s/some_password/${2}/" $GUAC_ROOT_DIR/guacamole.properties
-
-
-	sed -i "/Mysql Properties/a mysql-hostname: localhost\n
-        	/Mysql Properties/a mysql-port: 3306\n
-        	/Mysql Properties/a mysql-database: guacamole_db\n
-        	/Mysql Properties/a mysql-username: ${1}\n
-        	/Mysql Properties/a mysql-password: ${2}" $GUAC_ROOT_DIR/guacamole.properties
+		guac_db_retval="$?"
+        	guac_cmd_stat $guac_db_retval
 }
 
 
 guac_install () {
 	echo -e "\e[1;32mGuacamole Installation Started\e[0m"
-	guacServDir=$(echo $guacServerFileName.tar.gz | sed 's/\.tar\.gz//g')
-	
-	echo -e "\e[1;32mGuac server Dir is $guacServDir...\e[0m"
-
 	if [ -d $guacServerFileName  ]; then
 		cd $guacServerFileName
 
@@ -207,6 +195,8 @@ guac_install () {
 		
 		echo -e "\e[1;32mMoving the client to guac root\e[0m"
 		mv $TOP_DIR/$guacClientFileName $GUAC_ROOT_DIR/guacamole.war
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
 
 		###Check for guacamole.war file in /var/lib/tomcat*/webapps
 		if [ -e $GUAC_LIB_DIR/webapps/guacamole.war ]; then
@@ -222,21 +212,31 @@ guac_install () {
 		
 		
 		mkdir $GUAC_ROOT_DIR/{extensions,lib}
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
 
 		echo "GUACAMOLE_HOME=$GUAC_ROOT_DIR" >> /etc/default/tomcat8
-		
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
+
 		###copy .properties and .xml files to /etc/guacamole directory
 		if [ -d $TOP_DIR/guacamole-etc ]; then
 			cp $TOP_DIR/guacamole-etc/guacamole.properties $GUAC_ROOT_DIR
+			guac_install_retval="$?"
+                	guac_cmd_stat $guac_install_retval
 			
 			case $TYPECMD in
        			         $DATABASE_INSTALL)
 					 		sed -i '/basic-user-mapping/d' $GUAC_ROOT_DIR/guacamole.properties
-                        	       			###Install mariadb
+                        	       			guac_install_retval="$?"
+                					guac_cmd_stat $guac_install_retval
+							###Install mariadb
                          			  	database_install $1 $2 
        			                 ;;
        			         basic)
        			                 		cp $TOP_DIR/guacamole-etc/user-mapping.xml $GUAC_ROOT_DIR
+							guac_install_retval="$?"
+                					guac_cmd_stat $guac_install_retval
        			                 ;;
        			         *)
        			                 echo -e "\e[1;32mEnter the correct mode\e[0m"
@@ -250,6 +250,8 @@ guac_install () {
                 if [ -e $GUAC_SHARE_DIR/.guacamole ]; then
                         echo "exists"
                         rm $GUAC_SHARE_DIR/.guacamole
+			guac_install_retval="$?"
+                	guac_cmd_stat $guac_install_retval
                 fi
 		
 		ln -s $GUAC_ROOT_DIR $GUAC_SHARE_DIR/.guacamole
@@ -260,9 +262,21 @@ guac_install () {
                 #database_install $1 $2		
 
 		systemctl enable guacd
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
+		
 		systemctl start guacd
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
+
 		systemctl enable tomcat8
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
+
 		systemctl restart tomcat8
+		guac_install_retval="$?"
+                guac_cmd_stat $guac_install_retval
+
 		echo -e "\e[1;32mInstallation Finished\e[0m"
 
 	else
