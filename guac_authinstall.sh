@@ -182,14 +182,14 @@ guac_install () {
 		mv $TOP_DIR/$guacClientFileName $GUAC_ROOT_DIR/guacamole.war
 
 		###Check for guacamole.war file in /var/lib/tomcat*/webapps
-		if [ -e /var/lib/tomcat8/webapps/guacamole.war ]; then
+		if [ -e $GUAC_LIB_DIR/webapps/guacamole.war ]; then
         		echo -e "\e[1;32mchecking guacamole.war in tomcat in var/lib\e[0m"
 			echo "exists"
-			rm /var/lib/tomcat8/webapps/guacamole.war
+			rm $GUAC_LIB_DIR/webapps/guacamole.war
 		fi
 		
 		echo -e "\e[1;32mlinking guacamole.war with /var/lib/tomcat8/webapps...\e[0m"
-		ln -s $GUAC_ROOT_DIR/guacamole.war /var/lib/tomcat8/webapps/
+		ln -s $GUAC_ROOT_DIR/guacamole.war $GUAC_LIB_DIR/webapps/
 		guac_install_retval="$?"
                 guac_cmd_stat $guac_install_retval
 		
@@ -220,12 +220,12 @@ guac_install () {
 		fi
 
 		###Check for .guacamole file in /usr/share/tomcat*
-                if [ -e /usr/share/tomcat8/.guacamole ]; then
+                if [ -e $GUAC_SHARE_DIR/.guacamole ]; then
                         echo "exists"
-                        rm /usr/share/tomcat8/.guacamole
+                        rm $GUAC_SHARE_DIR/.guacamole
                 fi
 		
-		ln -s $GUAC_ROOT_DIR /usr/share/tomcat8/.guacamole
+		ln -s $GUAC_ROOT_DIR $GUAC_SHARE_DIR/.guacamole
 		guac_install_retval="$?"
                 guac_cmd_stat $guac_install_retval
 		
@@ -272,25 +272,33 @@ guac_clean () {
 	guac_cmd_stat $guac_clean_retval
 	
 	echo -e "\e[1;31mRemoving lib files \e[0m"
-	rm -r /var/lib/tomcat8/
-	guac_clean_retval="$?"
-	guac_cmd_stat $guac_clean_retval
+	if [ -d $TOP_DIR/$GUAC_LIB_DIR ]; then
+		rm -r $GUAC_LIB_DIR
+		guac_clean_retval="$?"
+		guac_cmd_stat $guac_clean_retval
+	fi
 	
 	echo -e "\e[1;31mRemoving etc files\e[0m"
-	rm -r $GUAC_ROOT_DIR
-	guac_clean_retval="$?"
-	guac_cmd_stat $guac_clean_retval
+	if [ -d $GUAC_ROOT_DIR ]; then
+		rm -r $GUAC_ROOT_DIR
+		guac_clean_retval="$?"
+		guac_cmd_stat $guac_clean_retval
+	fi
 	
 	echo -e "\e[1;31mRemoving share files\e[0m"
-	rm -r /usr/share/tomcat8
-	guac_clean_retval="$?"
-	guac_cmd_stat $guac_clean_retval
+	if [ -d $TOP_DIR/$GUAC_SHARE_DIR ]; then
+		rm -r $GUAC_SHARE_DIR
+		guac_clean_retval="$?"
+		guac_cmd_stat $guac_clean_retval
+	fi
 
 	echo -e "\e[1;31mRemoving Downloaded files\e[0m"
-	rm -r $guacServerFileName*
-	guac_clean_retval="$?"
-        guac_cmd_stat $guac_clean_retval
-
+	
+	if [ -d $TOP_DIR/$guacServerFileName ]; then
+		rm -r $guacServerFileName*
+		guac_clean_retval="$?"
+        	guac_cmd_stat $guac_clean_retval
+	fi
 	
 	if [ -d $TOP_DIR/$guacjavaconnFileName-$guacjavaconnversion ]; then
 		
