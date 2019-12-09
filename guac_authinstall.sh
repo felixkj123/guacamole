@@ -102,36 +102,63 @@ guac_apt_fetch () {
 database_install () {
                 ### Extract database extension for guacamole
                 tar -C $TOP_DIR/ -xvf $GUAC_FILES_DIR/$guacdbextFileName-$guacdbextversion.tar.gz
-                cp $TOP_DIR/$guacdbextFileName-$guacdbextversion/$guacdatabaseName/$guacdbextFileName-$guacdatabaseName-$guacdbextversion.jar $GUAC_ROOT_DIR/extensions
-
+                guac_db_retval="$?"
+        	guac_cmd_stat $guac_db_retval
+		
+		cp $TOP_DIR/$guacdbextFileName-$guacdbextversion/$guacdatabaseName/$guacdbextFileName-$guacdatabaseName-$guacdbextversion.jar $GUAC_ROOT_DIR/extensions
+		guac_db_retval="$?"
+        	guac_cmd_stat $guac_db_retval
 
                 ### Extract mysql driver 
                 tar -C $TOP_DIR/ -xzf $GUAC_FILES_DIR/$guacjavaconnFileName-$guacjavaconnversion.tar.gz
-                cp $TOP_DIR/$guacjavaconnFileName-$guacjavaconnversion/$guacjavaconnFileName-$guacjavaconnversion.jar $GUAC_ROOT_DIR/lib
+                guac_db_retval="$?"
+        	guac_cmd_stat $guac_db_retval
+		cp $TOP_DIR/$guacjavaconnFileName-$guacjavaconnversion/$guacjavaconnFileName-$guacjavaconnversion.jar $GUAC_ROOT_DIR/lib
 
 
                 ### Install database
                 apt -y install $databaseServ-server
-                systemctl status $databaseServ --no-pager
+                guac_db_retval="$?"
+                guac_cmd_stat $guac_db_retval
+
+		systemctl status $databaseServ --no-pager
 
                 cd $TOP_DIR
                 #./install_mariadb.sh $1 $2
                 mysql -u root -p$2 -e "CREATE DATABASE guacamole_db;"
-                mysql -u root -p$2 -e "GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO '$1'@'localhost' IDENTIFIED BY '$2';"
-                mysql -u root -p$2 -e "FLUSH PRIVILEGES;"
-                sleep 5
+                guac_db_retval="$?"
+                guac_cmd_stat $guac_db_retval
+		
+		mysql -u root -p$2 -e "GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO '$1'@'localhost' IDENTIFIED BY '$2';"
+                guac_db_retval="$?"
+                guac_cmd_stat $guac_db_retval
+		
+		mysql -u root -p$2 -e "FLUSH PRIVILEGES;"
+                guac_db_retval="$?"
+                guac_cmd_stat $guac_db_retval
+		
+		sleep 5
 
                 cat $TOP_DIR/$guacdbextFileName-$guacdbextversion/$guacdatabaseName/schema/*.sql | mysql -u root -p$2 guacamole_db
-		
-		sed -i '/Mysql Properties/a mysql-hostname: localhost' $GUAC_ROOT_DIR/guacamole.properties
-		sed -i '/Mysql Properties/a mysql-port: 3306' $GUAC_ROOT_DIR/guacamole.properties
-		sed -i '/Mysql Properties/a mysql-database: guacamole_db' $GUAC_ROOT_DIR/guacamole.properties
-		sed -i '/Mysql Properties/a mysql-username: guacamole_user' $GUAC_ROOT_DIR/guacamole.properties
-		sed -i '/Mysql Properties/a mysql-password: some_password' $GUAC_ROOT_DIR/guacamole.properties		
-		
-		sed -i "s/guacamole_user/${1}/" $GUAC_ROOT_DIR/guacamole.properties		
-		sed -i "s/some_password/${2}/" $GUAC_ROOT_DIR/guacamole.properties
+		guac_db_retval="$?"
+                guac_cmd_stat $guac_db_retval
 
+
+	#	sed -i '/Mysql Properties/a mysql-hostname: localhost' $GUAC_ROOT_DIR/guacamole.properties
+	#	sed -i '/Mysql Properties/a mysql-port: 3306' $GUAC_ROOT_DIR/guacamole.properties
+	#	sed -i '/Mysql Properties/a mysql-database: guacamole_db' $GUAC_ROOT_DIR/guacamole.properties
+	#	sed -i "/Mysql Properties/a mysql-username: ${1}" $GUAC_ROOT_DIR/guacamole.properties
+	#	sed -i "/Mysql Properties/a mysql-password: ${2}" $GUAC_ROOT_DIR/guacamole.properties		
+	#	
+	#	sed -i "s/guacamole_user/${1}/" $GUAC_ROOT_DIR/guacamole.properties		
+	#	sed -i "s/some_password/${2}/" $GUAC_ROOT_DIR/guacamole.properties
+
+
+	sed -i "/Mysql Properties/a mysql-hostname: localhost\n
+        	/Mysql Properties/a mysql-port: 3306\n
+        	/Mysql Properties/a mysql-database: guacamole_db\n
+        	/Mysql Properties/a mysql-username: ${1}\n
+        	/Mysql Properties/a mysql-password: ${2}" $GUAC_ROOT_DIR/guacamole.properties
 }
 
 
@@ -257,7 +284,7 @@ guac_clean () {
 	
 	echo -e "\e[1;32mGuac cleaning Initiated\e[0m"
 	echo -e "\e[1;31mPurging dependencies\e[0m"
-	apt-get purge -y $files
+	apt-get purge -y $files 
 	guac_clean_retval="$?"
 	guac_cmd_stat $guac_clean_retval
 	
@@ -272,7 +299,7 @@ guac_clean () {
 	guac_cmd_stat $guac_clean_retval
 	
 	echo -e "\e[1;31mRemoving lib files \e[0m"
-	if [ -d $TOP_DIR/$GUAC_LIB_DIR ]; then
+	if [ -d $GUAC_LIB_DIR ]; then
 		rm -r $GUAC_LIB_DIR
 		guac_clean_retval="$?"
 		guac_cmd_stat $guac_clean_retval
@@ -286,7 +313,7 @@ guac_clean () {
 	fi
 	
 	echo -e "\e[1;31mRemoving share files\e[0m"
-	if [ -d $TOP_DIR/$GUAC_SHARE_DIR ]; then
+	if [ -d $GUAC_SHARE_DIR ]; then
 		rm -r $GUAC_SHARE_DIR
 		guac_clean_retval="$?"
 		guac_cmd_stat $guac_clean_retval
@@ -335,7 +362,12 @@ input_check () {
 
 }
 
+usage () {
+		echo "Usage: ./guac_authinstall.sh <command> <mode>\n
+                      command : build/clean
+                      mode    : database/basic"
 
+}
 main () {
 
 clear
@@ -373,10 +405,10 @@ echo -e "
 	case $CMD in
 		build)
 			if [ "$#" -ne 2 ]; then
- 				echo "Usage: ./guac_authinstall.sh <command> <mode>\n
-					command : build/clean
-					mode    : database/basic"
-
+ 				#echo "Usage: ./guac_authinstall.sh <command> <mode>\n
+				#	command : build/clean
+				#	mode    : database/basic"
+				usage
 				exit 1
 			fi
 			
@@ -388,6 +420,10 @@ echo -e "
 				read server_username
 				echo "Enter the guacamole_server system password"
 				read -s server_password
+			
+			else
+				usage
+				exit 1
 			fi
 			apt-get update
 			guac_apt_fetch
