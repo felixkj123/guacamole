@@ -91,8 +91,10 @@ paste the below given to the file, if database authentication is used, comment o
 	password		=	password of the remote server(not mandatory)
 
 
+#### If database authentication is not your concern,but a basic installation skip the below parts and try restarting tomcat and guacd services after editing /etc/guacamole/user-mapping file.
 
-### Download authentication extension for guacamole
+
+### Download database authentication extension for guacamole
 - Download guacamole-auth-jdbc-0.9.14.tar.gz from [here](http://guacamole.apache.org/releases/0.9.14/).
 
 		tar xvf guacamole-auth-jdbc-0.9.14.tar.gz
@@ -100,7 +102,7 @@ paste the below given to the file, if database authentication is used, comment o
 		cp guacamole-auth-jdbc-mysql-0.9.14.jar /etc/guacamole/extensions
 
 
-### Download mysql driver from apache
+### Download database driver from apache
 - Go to site [here](https://dev.mysql.com/downloads/connector/j/).
 
 - Click on "Looking for the previous GA version?"

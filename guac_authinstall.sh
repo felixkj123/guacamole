@@ -1,6 +1,10 @@
 #!/bin/bash
 
+<<<<<<< HEAD
 TOM_VERSION="tomcat8"
+=======
+
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 
 TOP_DIR=$(cd $(dirname "$0") && pwd)
 GUAC_ROOT_DIR="/etc/guacamole"
@@ -29,6 +33,7 @@ guacServerFileLink="https://sourceforge.net/projects/guacamole/files/current/sou
 guacClientFileName="guacamole-0.9.14.war"
 guacClientFileLink="https://sourceforge.net/projects/guacamole/files/current/binary/$guacClientFileName"
 
+<<<<<<< HEAD
 guacdatabaseName="mysql"
 guacdbextversion="0.9.14"
 guacdbextFileName="guacamole-auth-jdbc"
@@ -36,6 +41,8 @@ guacjavaconnversion="5.1.48"
 guacjavaconnFileName="mysql-connector-java"
 
 databaseServ="mariadb"
+=======
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 
 Black=`tput setaf 0`   #${Black}
 Red=`tput setaf 1`     #${Red}
@@ -101,6 +108,7 @@ guac_apt_fetch () {
 
 database_install () {
                 ### Extract database extension for guacamole
+<<<<<<< HEAD
                 tar -C $TOP_DIR/ -xvf $GUAC_FILES_DIR/$guacdbextFileName-$guacdbextversion.tar.gz
                 cp $TOP_DIR/$guacdbextFileName-$guacdbextversion/$guacdatabaseName/$guacdbextFileName-$guacdatabaseName-$guacdbextversion.jar $GUAC_ROOT_DIR/extensions
 
@@ -113,6 +121,20 @@ database_install () {
                 ### Install database
                 apt -y install $databaseServ-server
                 systemctl status $databaseServ --no-pager
+=======
+                tar -C $TOP_DIR/ -xvf $TOP_DIR/guacamole-files/guacamole-auth-jdbc-0.9.14.tar.gz
+                cp $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/guacamole-auth-jdbc-mysql-0.9.14.jar /etc/guacamole/extensions
+
+
+                ### Extract mysql driver 
+                tar -C $TOP_DIR/ -xzf $TOP_DIR/guacamole-files/mysql-connector-java-5.1.48.tar.gz
+                cp $TOP_DIR/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar /etc/guacamole/lib
+
+
+                ### Install mariadb
+                apt -y install mariadb-server
+                systemctl status mariadb
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 
                 cd $TOP_DIR
                 #./install_mariadb.sh $1 $2
@@ -121,6 +143,7 @@ database_install () {
                 mysql -u root -p$2 -e "FLUSH PRIVILEGES;"
                 sleep 5
 
+<<<<<<< HEAD
                 cat $TOP_DIR/$guacdbextFileName-$guacdbextversion/$guacdatabaseName/schema/*.sql | mysql -u root -p$2 guacamole_db
 		
 		sed -i '/Mysql Properties/a mysql-hostname: localhost' $GUAC_ROOT_DIR/guacamole.properties
@@ -131,13 +154,29 @@ database_install () {
 		
 		sed -i "s/guacamole_user/${1}/" $GUAC_ROOT_DIR/guacamole.properties		
 		sed -i "s/some_password/${2}/" $GUAC_ROOT_DIR/guacamole.properties
+=======
+                cat $TOP_DIR/guacamole-auth-jdbc-0.9.14/mysql/schema/*.sql | mysql -u root -p$2 guacamole_db
+		
+		sed -i '/Mysql Properties/a mysql-hostname: localhost' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-port: 3306' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-database: guacamole_db' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-username: guacamole_user ' /etc/guacamole/guacamole.properties
+		sed -i '/Mysql Properties/a mysql-password: some_password' /etc/guacamole/guacamole.properties		
+		
+		sed -i "s/guacamole_user/${1}/" /etc/guacamole/guacamole.properties		
+		sed -i "s/some_password/${2}/" /etc/guacamole/guacamole.properties
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 
 }
 
 
 guac_install () {
 	echo -e "\e[1;32mGuacamole Installation Started\e[0m"
+<<<<<<< HEAD
 	guacServDir=$(echo $guacServerFileName.tar.gz | sed 's/\.tar\.gz//g')
+=======
+	guacServDir=$(echo $guacServerFileName | sed 's/\.tar\.gz//g')
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 	
 	echo -e "\e[1;32mGuac server Dir is $guacServDir...\e[0m"
 
@@ -202,6 +241,7 @@ guac_install () {
 		if [ -d $TOP_DIR/guacamole-etc ]; then
 			cp $TOP_DIR/guacamole-etc/guacamole.properties $GUAC_ROOT_DIR
 			
+<<<<<<< HEAD
 			case $TYPECMD in
        			         $DATABASE_INSTALL)
 					 		sed -i '/basic-user-mapping/d' $GUAC_ROOT_DIR/guacamole.properties
@@ -215,6 +255,14 @@ guac_install () {
        			                 echo -e "\e[1;32mEnter the correct mode\e[0m"
        			 esac
 
+=======
+			if [  $TYPECMD = $DATABASE_INSTALL ]; then
+				cp $TOP_DIR/guacamole-etc/user-mapping.xml $GUAC_ROOT_DIR
+			else
+				sed -i '/basic-user-mapping/d' $GUAC_ROOT_DIR/guacamole.properties
+			fi
+			
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 		else
 			echo -e "\e[1;31m$TOP_DIR/guacamole-etc not found,\n check the repo\e[0m"
 		fi
@@ -230,7 +278,11 @@ guac_install () {
                 guac_cmd_stat $guac_install_retval
 		
 		###Install mariadb
+<<<<<<< HEAD
                 #database_install $1 $2		
+=======
+                database_install $1 $2		
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 
 		systemctl enable guacd
 		systemctl start guacd
@@ -330,6 +382,18 @@ input_check () {
 
 main () {
 
+<<<<<<< HEAD
+=======
+if [ "$#" -ne 2 ]; then
+  echo "Usage: ./guac_authinstall.sh <command> <mode>\n
+command	: build/clean
+mode		: database/basic"
+  exit 1
+
+fi
+
+
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 clear
 echo -e "
 
@@ -360,6 +424,7 @@ echo -e "
 
 
 
+<<<<<<< HEAD
 
 
 	case $CMD in
@@ -381,6 +446,15 @@ echo -e "
 				echo "Enter the guacamole_server system password"
 				read -s server_password
 			fi
+=======
+	case $CMD in
+		build)
+			echo "Enter the guacamole_server system username"
+			read server_username
+			echo "Enter the guacamole_server system password"
+			read -s server_password
+
+>>>>>>> 33cc8d1a02bcbd3ff59e087cfd122fd27f257ab3
 			apt-get update
 			guac_apt_fetch
 			guac_install $server_username $server_password
