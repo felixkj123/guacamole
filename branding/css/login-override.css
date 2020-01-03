@@ -1,0 +1,14 @@
+.login-ui .login-dialog .logo {
+        background-image: url('app/ext/tempnamespace/images/faccl.png');
+	width: 8em;
+	-webkit-background-size: 8em auto;
+}
+div.login-ui {
+	background: #666;
+	background-color: #666;
+}
+.login-ui .login-dialog {
+	background-color: white;
+}
+
+

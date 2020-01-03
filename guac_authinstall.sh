@@ -8,6 +8,7 @@ GUAC_FILES_DIR="$TOP_DIR/guacamole-files"
 GUAC_SHARE_DIR="/usr/share/$TOM_VERSION"
 GUAC_LIB_DIR="/var/lib/$TOM_VERSION"
 
+BASH_PATH=$(which bash)
 
 SUCCESS=0
 ERROR=1
@@ -260,6 +261,8 @@ guac_install () {
 		
 		###Install mariadb
                 #database_install $1 $2		
+
+		$BASH_PATH manifest.sh		
 
 		systemctl enable guacd
 		guac_install_retval="$?"
