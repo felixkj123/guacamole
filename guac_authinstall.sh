@@ -262,7 +262,8 @@ guac_install () {
 		###Install mariadb
                 #database_install $1 $2		
 
-		$BASH_PATH manifest.sh		
+		$BASH_PATH manifest.sh	
+		cp $TOP_DIR/branding/images/accl-64.png /var/lib/tomcat8/webapps/guacamole/images	
 
 		systemctl enable guacd
 		guac_install_retval="$?"
@@ -281,6 +282,8 @@ guac_install () {
                 guac_cmd_stat $guac_install_retval
 
 		echo -e "\e[1;32mInstallation Finished\e[0m"
+		echo -e "\e[1;32mChange the smallicon name in /var/lib/tomcat8/webapps/guacamole/index.html from logo-64.png to accl-64.png\e[0m"
+		echo -e "\e[1;32mRestart tomcat8 and guacd services\e[0m"
 
 	else
 		echo -e "\e[1;31m$guacServerFileName file not found...[\e0m"

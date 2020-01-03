@@ -1,0 +1,553 @@
+guacdr_client_la-rdp_stream.lo: rdp_stream.c /usr/include/stdc-predef.h \
+ ../../../config.h client.h ../../../src/libguac/guacamole/client.h \
+ ../../../src/libguac/guacamole/client-fntypes.h \
+ ../../../src/libguac/guacamole/client-types.h \
+ ../../../src/libguac/guacamole/object-types.h \
+ ../../../src/libguac/guacamole/protocol-types.h \
+ ../../../src/libguac/guacamole/stream-types.h \
+ ../../../src/libguac/guacamole/user-types.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h \
+ ../../../src/libguac/guacamole/client-constants.h \
+ ../../../src/libguac/guacamole/layer-types.h \
+ ../../../src/libguac/guacamole/pool-types.h \
+ ../../../src/libguac/guacamole/socket-types.h \
+ ../../../src/libguac/guacamole/timestamp-types.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/bits/long-double.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ ../../../src/libguac/guacamole/user-fntypes.h /usr/include/cairo/cairo.h \
+ /usr/include/cairo/cairo-version.h /usr/include/cairo/cairo-features.h \
+ /usr/include/cairo/cairo-deprecated.h /usr/include/pthread.h \
+ /usr/include/endian.h /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/sched.h /usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+ /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+ ../../../src/common/common/clipboard.h rdp.h audio_input.h dvc.h \
+ ../../../src/common/common/list.h \
+ /usr/include/x86_64-linux-gnu/freerdp/freerdp.h \
+ /usr/include/x86_64-linux-gnu/freerdp/api.h \
+ /usr/include/x86_64-linux-gnu/freerdp/types.h \
+ /usr/include/x86_64-linux-gnu/winpr/wtypes.h /usr/include/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+ /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar2.h \
+ /usr/include/x86_64-linux-gnu/winpr/windows.h \
+ /usr/include/x86_64-linux-gnu/freerdp/settings.h \
+ /usr/include/x86_64-linux-gnu/freerdp/message.h \
+ /usr/include/x86_64-linux-gnu/winpr/collections.h /usr/include/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/libio.h \
+ /usr/include/x86_64-linux-gnu/bits/_G_config.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h \
+ /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+ /usr/include/x86_64-linux-gnu/winpr/winpr.h \
+ /usr/include/x86_64-linux-gnu/winpr/synch.h \
+ /usr/include/x86_64-linux-gnu/winpr/error.h \
+ /usr/include/x86_64-linux-gnu/winpr/handle.h \
+ /usr/include/x86_64-linux-gnu/winpr/security.h \
+ /usr/include/x86_64-linux-gnu/winpr/stream.h \
+ /usr/include/x86_64-linux-gnu/winpr/endian.h \
+ /usr/include/x86_64-linux-gnu/winpr/platform.h \
+ /usr/include/x86_64-linux-gnu/freerdp/error.h \
+ /usr/include/x86_64-linux-gnu/freerdp/event.h \
+ /usr/include/x86_64-linux-gnu/freerdp/extension.h \
+ /usr/include/x86_64-linux-gnu/freerdp/input.h \
+ /usr/include/x86_64-linux-gnu/freerdp/scancode.h \
+ /usr/include/x86_64-linux-gnu/winpr/input.h \
+ /usr/include/x86_64-linux-gnu/winpr/crt.h \
+ /usr/include/x86_64-linux-gnu/winpr/string.h \
+ /usr/include/x86_64-linux-gnu/winpr/memory.h \
+ /usr/include/x86_64-linux-gnu/winpr/heap.h \
+ /usr/include/x86_64-linux-gnu/freerdp/update.h \
+ /usr/include/x86_64-linux-gnu/winpr/thread.h \
+ /usr/include/x86_64-linux-gnu/winpr/spec.h \
+ /usr/include/x86_64-linux-gnu/freerdp/rail.h \
+ /usr/include/x86_64-linux-gnu/freerdp/graphics.h \
+ /usr/include/x86_64-linux-gnu/freerdp/utils/pcap.h \
+ /usr/include/x86_64-linux-gnu/freerdp/primary.h \
+ /usr/include/x86_64-linux-gnu/freerdp/secondary.h \
+ /usr/include/x86_64-linux-gnu/freerdp/altsec.h \
+ /usr/include/x86_64-linux-gnu/freerdp/window.h \
+ /usr/include/x86_64-linux-gnu/freerdp/pointer.h \
+ /usr/include/x86_64-linux-gnu/freerdp/client.h \
+ ../../../src/libguac/guacamole/stream.h \
+ ../../../src/libguac/guacamole/user.h \
+ ../../../src/libguac/guacamole/user-constants.h \
+ ../../../src/common/common/display.h ../../../src/common/common/cursor.h \
+ ../../../src/common/common/surface.h ../../../src/common/common/rect.h \
+ ../../../src/libguac/guacamole/layer.h \
+ ../../../src/libguac/guacamole/protocol.h \
+ ../../../src/libguac/guacamole/socket.h \
+ ../../../src/libguac/guacamole/socket-constants.h \
+ ../../../src/libguac/guacamole/socket-fntypes.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd.h \
+ ../../../src/common/common/surface.h keyboard.h rdp_keymap.h rdp_disp.h \
+ rdp_settings.h /usr/include/x86_64-linux-gnu/freerdp/client/disp.h \
+ rdp_fs.h ../../../src/libguac/guacamole/pool.h /usr/include/dirent.h \
+ /usr/include/x86_64-linux-gnu/bits/dirent.h rdp_print_job.h \
+ /usr/include/x86_64-linux-gnu/freerdp/codec/color.h \
+ ../../../src/libguac/guacamole/audio.h \
+ ../../../src/libguac/guacamole/audio-fntypes.h \
+ ../../../src/libguac/guacamole/audio-types.h \
+ ../../../src/common-ssh/common-ssh/sftp.h \
+ ../../../src/common/common/json.h \
+ ../../../src/common-ssh/common-ssh/ssh.h \
+ ../../../src/common-ssh/common-ssh/user.h \
+ ../../../src/common-ssh/common-ssh/key.h /usr/include/openssl/ossl_typ.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+ /usr/include/openssl/e_os2.h \
+ /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
+ /usr/include/openssl/opensslv.h /usr/include/inttypes.h \
+ /usr/include/libssh2.h /usr/include/x86_64-linux-gnu/sys/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h \
+ ../../../src/libguac/guacamole/object.h /usr/include/libssh2_sftp.h \
+ /usr/include/libssh2.h ../../../src/common-ssh/common-ssh/ssh.h \
+ ../../../src/common-ssh/common-ssh/user.h rdp_svc.h \
+ /usr/include/x86_64-linux-gnu/freerdp/utils/svc_plugin.h \
+ /usr/include/x86_64-linux-gnu/freerdp/svc.h \
+ /usr/include/x86_64-linux-gnu/freerdp/addin.h \
+ /usr/include/x86_64-linux-gnu/freerdp/utils/debug.h \
+ /usr/include/x86_64-linux-gnu/freerdp/utils/event.h rdp_stream.h \
+ /usr/include/x86_64-linux-gnu/freerdp/channels/channels.h \
+ /usr/include/x86_64-linux-gnu/freerdp/client/cliprdr.h
+
+/usr/include/stdc-predef.h:
+
+../../../config.h:
+
+client.h:
+
+../../../src/libguac/guacamole/client.h:
+
+../../../src/libguac/guacamole/client-fntypes.h:
+
+../../../src/libguac/guacamole/client-types.h:
+
+../../../src/libguac/guacamole/object-types.h:
+
+../../../src/libguac/guacamole/protocol-types.h:
+
+../../../src/libguac/guacamole/stream-types.h:
+
+../../../src/libguac/guacamole/user-types.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h:
+
+../../../src/libguac/guacamole/client-constants.h:
+
+../../../src/libguac/guacamole/layer-types.h:
+
+../../../src/libguac/guacamole/pool-types.h:
+
+../../../src/libguac/guacamole/socket-types.h:
+
+../../../src/libguac/guacamole/timestamp-types.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/usr/include/features.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+
+../../../src/libguac/guacamole/user-fntypes.h:
+
+/usr/include/cairo/cairo.h:
+
+/usr/include/cairo/cairo-version.h:
+
+/usr/include/cairo/cairo-features.h:
+
+/usr/include/cairo/cairo-deprecated.h:
+
+/usr/include/pthread.h:
+
+/usr/include/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/sched.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/time.h:
+
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+../../../src/common/common/clipboard.h:
+
+rdp.h:
+
+audio_input.h:
+
+dvc.h:
+
+../../../src/common/common/list.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/freerdp.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/api.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/types.h:
+
+/usr/include/x86_64-linux-gnu/winpr/wtypes.h:
+
+/usr/include/wchar.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
+/usr/include/x86_64-linux-gnu/winpr/windows.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/settings.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/message.h:
+
+/usr/include/x86_64-linux-gnu/winpr/collections.h:
+
+/usr/include/stdio.h:
+
+/usr/include/x86_64-linux-gnu/bits/libio.h:
+
+/usr/include/x86_64-linux-gnu/bits/_G_config.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+
+/usr/include/string.h:
+
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
+
+/usr/include/x86_64-linux-gnu/winpr/winpr.h:
+
+/usr/include/x86_64-linux-gnu/winpr/synch.h:
+
+/usr/include/x86_64-linux-gnu/winpr/error.h:
+
+/usr/include/x86_64-linux-gnu/winpr/handle.h:
+
+/usr/include/x86_64-linux-gnu/winpr/security.h:
+
+/usr/include/x86_64-linux-gnu/winpr/stream.h:
+
+/usr/include/x86_64-linux-gnu/winpr/endian.h:
+
+/usr/include/x86_64-linux-gnu/winpr/platform.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/error.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/event.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/extension.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/input.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/scancode.h:
+
+/usr/include/x86_64-linux-gnu/winpr/input.h:
+
+/usr/include/x86_64-linux-gnu/winpr/crt.h:
+
+/usr/include/x86_64-linux-gnu/winpr/string.h:
+
+/usr/include/x86_64-linux-gnu/winpr/memory.h:
+
+/usr/include/x86_64-linux-gnu/winpr/heap.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/update.h:
+
+/usr/include/x86_64-linux-gnu/winpr/thread.h:
+
+/usr/include/x86_64-linux-gnu/winpr/spec.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/rail.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/graphics.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/utils/pcap.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/primary.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/secondary.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/altsec.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/window.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/pointer.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/client.h:
+
+../../../src/libguac/guacamole/stream.h:
+
+../../../src/libguac/guacamole/user.h:
+
+../../../src/libguac/guacamole/user-constants.h:
+
+../../../src/common/common/display.h:
+
+../../../src/common/common/cursor.h:
+
+../../../src/common/common/surface.h:
+
+../../../src/common/common/rect.h:
+
+../../../src/libguac/guacamole/layer.h:
+
+../../../src/libguac/guacamole/protocol.h:
+
+../../../src/libguac/guacamole/socket.h:
+
+../../../src/libguac/guacamole/socket-constants.h:
+
+../../../src/libguac/guacamole/socket-fntypes.h:
+
+/usr/include/unistd.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/x86_64-linux-gnu/bits/environments.h:
+
+/usr/include/x86_64-linux-gnu/bits/confname.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
+/usr/include/x86_64-linux-gnu/bits/unistd.h:
+
+../../../src/common/common/surface.h:
+
+keyboard.h:
+
+rdp_keymap.h:
+
+rdp_disp.h:
+
+rdp_settings.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/client/disp.h:
+
+rdp_fs.h:
+
+../../../src/libguac/guacamole/pool.h:
+
+/usr/include/dirent.h:
+
+/usr/include/x86_64-linux-gnu/bits/dirent.h:
+
+rdp_print_job.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/codec/color.h:
+
+../../../src/libguac/guacamole/audio.h:
+
+../../../src/libguac/guacamole/audio-fntypes.h:
+
+../../../src/libguac/guacamole/audio-types.h:
+
+../../../src/common-ssh/common-ssh/sftp.h:
+
+../../../src/common/common/json.h:
+
+../../../src/common-ssh/common-ssh/ssh.h:
+
+../../../src/common-ssh/common-ssh/user.h:
+
+../../../src/common-ssh/common-ssh/key.h:
+
+/usr/include/openssl/ossl_typ.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/limits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+
+/usr/include/openssl/e_os2.h:
+
+/usr/include/x86_64-linux-gnu/openssl/opensslconf.h:
+
+/usr/include/openssl/opensslv.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/libssh2.h:
+
+/usr/include/x86_64-linux-gnu/sys/stat.h:
+
+/usr/include/x86_64-linux-gnu/bits/stat.h:
+
+../../../src/libguac/guacamole/object.h:
+
+/usr/include/libssh2_sftp.h:
+
+/usr/include/libssh2.h:
+
+../../../src/common-ssh/common-ssh/ssh.h:
+
+../../../src/common-ssh/common-ssh/user.h:
+
+rdp_svc.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/utils/svc_plugin.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/svc.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/addin.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/utils/debug.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/utils/event.h:
+
+rdp_stream.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/channels/channels.h:
+
+/usr/include/x86_64-linux-gnu/freerdp/client/cliprdr.h:
