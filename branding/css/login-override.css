@@ -1,14 +1,26 @@
 .login-ui .login-dialog .logo {
-        background-image: url('app/ext/tempnamespace/images/faccl.png');
-	width: 8em;
-	-webkit-background-size: 8em auto;
+	background-image: url('app/ext/tempnamespace/images/faccl.png');
+        width: 244px;
+        height: 82px;
+        -webkit-background-size: 11em auto;
+        background-repeat: no-repeat;
+        margin: 1px 1px;
+        padding: 0;
+        border-width: 0;
+
 }
 div.login-ui {
-	background: #666;
-	background-color: #666;
+	background: #545452;
+	background-color: #545452;
 }
 .login-ui .login-dialog {
-	background-color: white;
+	background-color: #ffffff;
 }
 
+.login-ui .login-dialog .version .app-name {
+    font-weight: normal;
+    text-transform: none;
+    text-align: center;
+    font-size: 1em;
+}
 
