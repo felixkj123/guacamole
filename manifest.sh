@@ -20,9 +20,9 @@ if [ $1 = 'e'  ]; then
 fi
 
 
-cd $foldername
+cd $TOP_DIR/$foldername
 zip -r $jarname *
-cd
+cd $TOP_DIR
 
 printf "%s\n" "copying $jarname to extensions"
 cp $foldername/$jarname /etc/guacamole/extensions/
