@@ -3,16 +3,18 @@
         "guacamoleVersion" : "*",
         "name" : "Tempname",
         "namespace" : "tempnamespace",
-        "translations" : [ 
+        
+	"translations" : [ 
 		"translations/en.json"
 	 ],
 
 	 "css" : [
                 "css/login-override.css"
          ],
-
+	
 	 "resources" : {
-                "images/faccl.png" : "image/png"
-         }
+                "images/faccl.png" : "image/png",
+        	"images/loginpg7a.jpg" : "image/jpg"
+	 }
 }
 
