@@ -39,6 +39,16 @@ div.login-ui {
     font-size: 1em;
 }
 
+.login-ui .login-fields .labeled-field .field-header {
+
+  opacity: 0.9;
+
+}
+
+
+.login-ui .login-fields .labeled-field input:focus {
+    background: transparent;
+}
 
 
 .login-ui .login-dialog .version .version-number {
