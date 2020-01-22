@@ -9,12 +9,16 @@
         border-width: 0;
 
 }
+
+
 div.login-ui {
 	background:none;
 	background-image: url('app/ext/tempnamespace/images/loginpg7a.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+
 .login-ui div.login-dialog {
 	background-color: transparent;
 	border: 0px solid rgba(0, 0, 0, 0.25);
@@ -39,10 +43,17 @@ div.login-ui {
     font-size: 1em;
 }
 
+
 .login-ui .login-fields .labeled-field .field-header {
+    display : none ;
 
-  opacity: 0.9;
+}
 
+
+.login-ui .login-fields .labeled-field.empty .field-header {
+    opacity : 0.9;
+    display : block;
+    
 }
 
 
@@ -54,4 +65,9 @@ div.login-ui {
 .login-ui .login-dialog .version .version-number {
 
     opacity: 0;
+}
+
+
+div.location, input[type=text], input[type=email], input[type=number], input[type=password], textarea {
+	background: transparent;
 }
