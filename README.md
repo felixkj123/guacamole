@@ -1,6 +1,29 @@
 # Guacamole-master
 
-## Basic guacamole installation without database
+### Using script to install Guacamole
+ 
+ - clone the repo
+ 
+ - Edit the "*.properties" & "*.xml" files in guacamole-etc(for simple guacamole installation,for database installation skip this step)
+ 
+ - Make the script executable
+ 
+         sudo chmod +x guac_authinstall.sh
+ 
+ - run guac_install.sh
+         - to build/install
+ 
+                 sudo -s
+                 ./guac_authinstall.sh build <option>
+ 
+                 option-- database/simple
+         
+         - to clean/uninstall the build
+ 
+                 ./guac_authinstall.sh clean all
+          
+ - to add new connections, update the .xml file and restart tomcat service
+
 
 
 ## Manual Installation-(tested on ubundu 18.04)
@@ -167,7 +190,7 @@ To login to the guacamole enter **http://<guacamole_server_ip>:8080/guacamole/**
 ## End of Manual Installation
 
 
-### Using script to install Guacamole(database authentication is not yet supported)
+### Using script to install Guacamole
 
 - clone the repo
 
@@ -181,11 +204,13 @@ To login to the guacamole enter **http://<guacamole_server_ip>:8080/guacamole/**
 	- to build/install
 		
 		sudo -s
-		./guac_install.sh build
+		./guac_install.sh build <option>
+		
+		option-- database/simple
 	
 	- to clean/uninstall the build
 		
-		./guac_install.sh clean
+		./guac_install.sh clean all
 	
 - to add new connections, update the .xml file and restart tomcat service
 
