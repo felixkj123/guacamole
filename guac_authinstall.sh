@@ -65,6 +65,7 @@ guac_cmd_stat () {
 }
 
 guac_apt_fetch () {	
+
 	echo -e "\e[1;32mguac_apt-fetch files...\e[0m"
 	###Installing guacamole required dependencies
 	apt-get install -y $files
@@ -77,25 +78,27 @@ guac_apt_fetch () {
 	guac_apt_fetch_retval="$?"
         guac_cmd_stat $guac_apt_fetch_retval
 	
-	echo "check2"	
 	echo -e "\e[1;31mcheck2............................\e[0m"	
-	###Downloading Guacamole server 
-	wget -P $TOP_DIR $guacServerFileLink
-	guac_apt_fetch_retval="$?"
-        guac_cmd_stat $guac_apt_fetch_retval
+	###Downloading Guacamole server--------------------------downloading is currently disabled, instead file is downloaded in repo and is copied.
+	#wget -P $TOP_DIR $guacServerFileLink
+	#guac_apt_fetch_retval="$?"
+        #guac_cmd_stat $guac_apt_fetch_retval
 
-	echo "check3"	
 	echo -e "\e[1;31mcheck3............................\e[0m"	
 	###Untar Guacamole server
+
+	cp $GUAC_FILES_DIR/$guacServerFileName.tar.gz $TOP_DIR/
 	tar xzf $guacServerFileName.tar.gz
 	
-	echo "check4"	
 	echo -e "\e[1;31mcheck4............................\e[0m"	
-	###Downloading Guacamole client
-	wget -P $TOP_DIR $guacClientFileLink
-	guac_apt_fetch_retval="$?"
-        guac_cmd_stat $guac_apt_fetch_retval
-	echo "check5"	
+	
+	###Downloading Guacamole client-------------------------downloading is currently disabled, instead file is downloaded in repo and is copied.
+	#wget -P $TOP_DIR $guacClientFileLink
+	#guac_apt_fetch_retval="$?"
+        #guac_cmd_stat $guac_apt_fetch_retval
+	echo -e "\e[1;32mCopying guacamole client to top directory...\e[0m"
+	cp $GUAC_FILES_DIR/$guacClientFileName $TOP_DIR
+
 	echo -e "\e[1;31mcheck5............................\e[0m"	
 }
 
@@ -263,27 +266,21 @@ guac_install () {
                 #database_install $1 $2		
 
 		$BASH_PATH manifest.sh	
-		cp $TOP_DIR/branding/images/accl-64.png /var/lib/tomcat8/webapps/guacamole/images	
+		cp $TOP_DIR/branding/images/accl-64.png /var/lib/tomcat8/webapps/guacamole/images ;guac_install_retval="$?" ; guac_cmd_stat $guac_install_retval
 
-		systemctl enable guacd
-		guac_install_retval="$?"
-                guac_cmd_stat $guac_install_retval
+		cp $GUAC_FILES_DIR/index.html /var/lib/tomcat8/webapps/guacamole/ ;guac_install_retval="$?"; guac_cmd_stat $guac_install_retval
+
+		systemctl enable guacd ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
 		
-		systemctl start guacd
-		guac_install_retval="$?"
-                guac_cmd_stat $guac_install_retval
+		systemctl start guacd ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
 
-		systemctl enable tomcat8
-		guac_install_retval="$?"
-                guac_cmd_stat $guac_install_retval
+		systemctl enable tomcat8 ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
 
-		systemctl restart tomcat8
-		guac_install_retval="$?"
-                guac_cmd_stat $guac_install_retval
+		systemctl restart tomcat8 ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
 
 		echo -e "\e[1;32mInstallation Finished\e[0m"
-		echo -e "\e[1;32mChange the smallicon name in /var/lib/tomcat8/webapps/guacamole/index.html from logo-64.png to accl-64.png\e[0m"
-		echo -e "\e[1;32mRestart tomcat8 and guacd services\e[0m"
+		#echo -e "\e[1;32mChange the smallicon name in /var/lib/tomcat8/webapps/guacamole/index.html from logo-64.png to accl-64.png\e[0m"
+		#echo -e "\e[1;32mRestart tomcat8 and guacd services\e[0m"
 
 	else
 		echo -e "\e[1;31m$guacServerFileName file not found...[\e0m"
@@ -436,9 +433,9 @@ echo -e "
 			input_check $2
 
 			if [ $2 = database ]; then
-				echo "Enter the guacamole_server system username"
+				echo "Enter a username for guacamole database server"
 				read server_username
-				echo "Enter the guacamole_server system password"
+				echo "Enter a password for guacamole database server"
 				read -s server_password
 			
 			else
