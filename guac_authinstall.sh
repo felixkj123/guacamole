@@ -25,16 +25,30 @@ libpulse-dev libtelnet-dev expect zip"
 
 tomcatfiles="tomcat8 tomcat8-admin tomcat8-common tomcat8-user"
 
-guacServerFileName="guacamole-server-0.9.14"
+
+guacServerFileName="guacamole-server-1.1.0"
+guacClientFileName="guacamole-1.1.0.war"
+guacdbextFileName="guacamole-auth-jdbc"
+guacdbextversion="1.1.0"
+guacjavaconnFileName="mysql-connector-java"
+guacjavaconnversion="5.1.49"
+
+
+
+
+#guacServerFileName="guacamole-server-0.9.14"
+#guacServerFileName="guacamole-server-1.1.0"
 guacServerFileLink="https://sourceforge.net/projects/guacamole/files/current/source/$guacServerFileName.tar.gz"
-guacClientFileName="guacamole-0.9.14.war"
+#guacClientFileName="guacamole-0.9.14.war"
+#guacClientFileName="guacamole-1.1.0.war"
 guacClientFileLink="https://sourceforge.net/projects/guacamole/files/current/binary/$guacClientFileName"
 
 guacdatabaseName="mysql"
-guacdbextversion="0.9.14"
-guacdbextFileName="guacamole-auth-jdbc"
-guacjavaconnversion="5.1.48"
-guacjavaconnFileName="mysql-connector-java"
+#guacdbextversion="0.9.14"
+#guacdbextversion="1.1.0"
+#guacdbextFileName="guacamole-auth-jdbc"
+#guacjavaconnversion="5.1.48"
+#guacjavaconnFileName="mysql-connector-java"
 
 databaseServ="mariadb"
 
@@ -87,8 +101,9 @@ guac_apt_fetch () {
 	echo -e "\e[1;31mcheck3............................\e[0m"	
 	###Untar Guacamole server
 
-	cp $GUAC_FILES_DIR/$guacServerFileName.tar.gz $TOP_DIR/
-	tar xzf $guacServerFileName.tar.gz
+	echo -e "\e[1;31mcp $GUAC_FILES_DIR/$guacServerFileName.tar.gz $TOP_DIR/\e[0m"
+	#cp $GUAC_FILES_DIR/$guacServerFileName.tar.gz $TOP_DIR/
+	tar -C $TOP_DIR/ -xvf $GUAC_FILES_DIR/$guacServerFileName.tar.gz
 	
 	echo -e "\e[1;31mcheck4............................\e[0m"	
 	
@@ -97,6 +112,7 @@ guac_apt_fetch () {
 	#guac_apt_fetch_retval="$?"
         #guac_cmd_stat $guac_apt_fetch_retval
 	echo -e "\e[1;32mCopying guacamole client to top directory...\e[0m"
+	echo -e "\e[1;31mcp $GUAC_FILES_DIR/$guacClientFileName $TOP_DIR\e[0m"
 	cp $GUAC_FILES_DIR/$guacClientFileName $TOP_DIR
 
 	echo -e "\e[1;31mcheck5............................\e[0m"	
@@ -272,7 +288,7 @@ guac_install () {
 
 		systemctl enable guacd ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
 		
-		systemctl start guacd ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
+		systemctl restart guacd ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
 
 		systemctl enable tomcat8 ;guac_install_retval="$?" ;guac_cmd_stat $guac_install_retval
 
